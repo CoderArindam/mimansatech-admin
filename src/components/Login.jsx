@@ -17,6 +17,13 @@ const Login = () => {
     }
   };
 
+  // Add onKeyDown handler to trigger login on "Enter" key press
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleLogin();
+    }
+  };
+
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="w-80 bg-white p-8 shadow-md rounded">
@@ -33,6 +40,7 @@ const Login = () => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          onKeyDown={handleKeyDown} // Attach event handler here
           className="w-full p-2 mb-4 border rounded"
         />
         <button
