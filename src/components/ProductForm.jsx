@@ -3,7 +3,13 @@ import { useDispatch } from "react-redux";
 import { useDropzone } from "react-dropzone";
 import { addProduct, updateProduct } from "../features/productSlice";
 import { v4 as uuidv4 } from "uuid";
-import { AiOutlineCloudUpload, AiOutlineCloseCircle } from "react-icons/ai";
+import {
+  AiOutlineCloudUpload,
+  AiOutlineCloseCircle,
+  AiOutlineDelete,
+  AiOutlinePlus,
+  AiOutlineSave,
+} from "react-icons/ai";
 
 const ProductForm = ({ editingProduct, onEditComplete }) => {
   const dispatch = useDispatch();
@@ -231,9 +237,10 @@ const ProductForm = ({ editingProduct, onEditComplete }) => {
           <button
             type="button"
             onClick={() => handleRemoveProduct(index)}
-            className="py-6 text-red-500 hover:text-red-700"
+            className="flex items-center gap-2 text-red-500 hover:text-red-700 transition duration-200 p-2 rounded-md hover:bg-red-100 "
           >
-            Remove This Field
+            <AiOutlineDelete className="text-lg" />
+            <span className="text-sm font-semibold">Remove</span>
           </button>
         </div>
       ))}
@@ -241,16 +248,18 @@ const ProductForm = ({ editingProduct, onEditComplete }) => {
         <button
           type="button"
           onClick={handleAddProduct}
-          className="w-[1/2] pt-3 pb-3 pr-5 pl-5 bg-green-500 flex-col text-white rounded-lg hover:bg-green-600 transition duration-300"
+          className="w-[1/2] flex items-center justify-center gap-2 bg-green-500 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105"
         >
-          {products.length === 1 ? "Add Product" : "Add Products"}
+          <AiOutlinePlus className="text-lg" />
+          <span>{products.length === 1 ? "Add Product" : "Add Products"}</span>
         </button>
 
         <button
           type="submit"
-          className="w-[1/2] pt-3 pb-3 pr-5 pl-5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
+          className="w-[1/2] flex items-center justify-center gap-2 bg-blue-500 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:bg-blue-600 transition duration-300 ease-in-out transform hover:scale-105"
         >
-          {editingProduct ? "Update Product" : "Submit Form"}
+          <AiOutlineSave className="text-lg" />
+          <span>{editingProduct ? "Update Product" : "Submit Form"}</span>
         </button>
       </div>
     </form>

@@ -4,6 +4,7 @@ import ProductForm from "../components/ProductForm";
 import ProductList from "../components/ProductList";
 import { useSelector } from "react-redux";
 import { useAuth } from "../context/AuthContext";
+import { AiOutlineLogout } from "react-icons/ai";
 
 const AdminDashboard = () => {
   const { isAuthenticated, logout } = useAuth();
@@ -26,12 +27,13 @@ const AdminDashboard = () => {
       <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
         Admin Dashboard
       </h1>
-      <div className="flex justify-center">
+      <div className="flex justify-center mb-5">
         <button
           onClick={logout}
-          className="text-white bg-red-500 px-5 py-3 rounded-md mb-5"
+          className="flex items-center gap-2 bg-red-500 text-white font-semibold px-6 py-3 rounded-md shadow-md hover:bg-red-600 transition duration-300 ease-in-out transform hover:scale-105"
         >
-          Logout
+          <AiOutlineLogout className="text-lg" />
+          <span>Logout</span>
         </button>
       </div>
       <div className="bg-white shadow-md rounded-lg p-6 mb-8">
