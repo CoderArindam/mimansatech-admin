@@ -1,12 +1,16 @@
 // src/context/AuthContext.jsx
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
-// Create a context for authentication
 const AuthContext = createContext();
 
-// Create a provider component
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    () => JSON.parse(localStorage.getItem("isAuthenticated")) || false
+  );
+
+  useEffect(() => {
+    localStorage.setItem("isAuthenticated", JSON.stringify(isAuthenticated));
+  }, [isAuthenticated]);
 
   const login = () => {
     setIsAuthenticated(true);
@@ -23,7 +27,6 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// Create a custom hook to use the AuthContext
 export const useAuth = () => {
   return useContext(AuthContext);
 };
