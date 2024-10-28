@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useDropzone } from "react-dropzone";
 import { addProduct, updateProduct } from "../features/productSlice";
 import { v4 as uuidv4 } from "uuid";
+import { AiOutlineCloudUpload, AiOutlineCloseCircle } from "react-icons/ai";
 
 const ProductForm = ({ editingProduct, onEditComplete }) => {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const ProductForm = ({ editingProduct, onEditComplete }) => {
       image: "",
       imageFile: null,
       imageUrl: "",
-      uploadType: "file", // Track upload type (file or URL)
+      uploadType: "file",
       status: true,
     },
   ]);
@@ -148,7 +149,7 @@ const ProductForm = ({ editingProduct, onEditComplete }) => {
                 placeholder="Price"
                 required
                 className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                onWheel={(e) => e.target.blur()} // Prevent scrolling when using number inputs
+                onWheel={(e) => e.target.blur()}
               />
             </div>
           </div>
@@ -194,30 +195,27 @@ const ProductForm = ({ editingProduct, onEditComplete }) => {
 
           {product.uploadType === "file" ? (
             product.imageFile ? (
-              <div className="relative w-24 h-24 mb-4">
-                <img
-                  src={URL.createObjectURL(product.imageFile)}
-                  alt="Uploaded Preview"
-                  className="w-full h-full object-cover rounded-md border border-gray-300"
-                />
-                <span
-                  onClick={() => removeImage(index)}
-                  className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1 cursor-pointer"
-                  title="Remove image"
-                >
-                  &times;
-                </span>
-                <p className="text-sm text-gray-500 mt-1 text-center">
-                  {product.imageFile.name}
-                </p>
+              <div className="containere">
+                <div className="relative w-24 h-24 mb-4">
+                  <img
+                    src={URL.createObjectURL(product.imageFile)}
+                    alt="Uploaded Preview"
+                    className="w-full h-full object-cover rounded-md border border-gray-300"
+                  />
+                  <AiOutlineCloseCircle
+                    onClick={() => removeImage(index)}
+                    className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1 cursor-pointer text-xl"
+                    title="Remove image"
+                  />
+                  <p className="text-sm text-gray-500 mt-1 text-center">
+                    {product.imageFile.name}
+                  </p>
+                </div>
               </div>
             ) : (
-              <div className="p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <p className="mb-2">Drag and drop an image below:</p>
-                <Dropzone
-                  onDrop={(acceptedFiles) => onDrop(acceptedFiles, index)}
-                />
-              </div>
+              <Dropzone
+                onDrop={(acceptedFiles) => onDrop(acceptedFiles, index)}
+              />
             )
           ) : (
             <input
@@ -233,7 +231,7 @@ const ProductForm = ({ editingProduct, onEditComplete }) => {
           <button
             type="button"
             onClick={() => handleRemoveProduct(index)}
-            className="mt-4 text-red-500 hover:text-red-700"
+            className="py-6 text-red-500 hover:text-red-700"
           >
             Remove This Field
           </button>
@@ -268,8 +266,9 @@ const Dropzone = ({ onDrop }) => {
   return (
     <div
       {...getRootProps()}
-      className="cursor-pointer border-dashed border-2 p-4 rounded-lg"
+      className="cursor-pointer border-dashed border-2 p-4 rounded-lg flex flex-col items-center text-gray-500"
     >
+      <AiOutlineCloudUpload className="text-4xl text-blue-500 mb-2" />
       <input {...getInputProps()} />
       <p>Drag & drop an image here, or click to select one</p>
     </div>
